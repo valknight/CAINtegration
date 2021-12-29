@@ -7,5 +7,5 @@ config.json
 web/song.json
 *.pyc
 venv/
-.dsstore
+.DS_Store
 .vscode/
