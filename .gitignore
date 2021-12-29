@@ -1,0 +1,11 @@
+dist/
+build/
+__pycache__/
+*.spec
+.cache
+config.json
+web/song.json
+*.pyc
+venv/
+.dsstore
+.vscode/
