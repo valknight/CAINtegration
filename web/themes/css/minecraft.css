@@ -1,0 +1,47 @@
+@font-face {
+    font-family: minecraft;
+    src: url(../../fonts/Minecraftia-Regular.ttf);
+}
+
+.notification {
+    height: 155px;
+    width: 700px;
+    background-color: transparent;
+    background-image: url('/images/toast/bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    color: #fff;
+}
+
+.song-img {
+    position: absolute;
+    right: 25px;
+    top: 30px;
+    height: 90px;
+}
+
+.text {
+    margin: 0;
+    position: absolute;
+    right: 120px;
+    width: 550px;
+    margin-right: 20px;
+    padding-top: 30px;
+    font-family: minecraft;
+}
+
+.ellipsis {
+    padding-top: 10px;
+}
+
+#song {
+    font-size: 24px;
+}
+
+.artist {
+    color: gray;
+}

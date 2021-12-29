@@ -1,0 +1,32 @@
+@import url(basic.css);
+.notification {
+    right: 50px;
+    animation: glowspin linear 2s infinite;
+    animation-direction: alternate;
+}
+
+@keyframes glowspin {
+    0% {
+        box-shadow: 0 0 18px #fff, 6px 0 18px #0ff, -6px 0 18px #0ff, 6px 0 30px violet, -6px 0 30px #0ff, 0 0 18px #fff, -4px 0 18px violet, 4px 0 18px #0ff;
+    }
+    100% {
+        box-shadow: 0 0 18px #fff, 6px 0 18px violet, -6px 0 18px violet, 6px 0 30px #0ff, -6px 0 30px violet, 0 0 18px #fff, -4px 0 18px #0ff, 4px 0 18px violet;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        top: -200;
+    }
+    100% {
+        top: 50px;
+    }
+}
+
+.slide-in {
+    top: 50px;
+    animation-name: glowspin, slidein;
+    animation-duration: 2000ms, 500ms;
+    animation-timing-function: linear, cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-direction: alternate, normal;
+}

@@ -1,0 +1,61 @@
+html {
+    width: 1080px;
+    height: 1920px;
+}
+
+.notification {
+    position: absolute;
+    right: 20px;
+    top: -200px;
+    animation: slideOut ease 0.5s;
+    text-align: right;
+    box-sizing: border-box;
+    border: 5px;
+}
+
+.text {
+    margin: 5px;
+    font-size: 18px;
+    white-space: nowrap;
+    font-weight: 100;
+    right: 0px;
+    overflow: clip;
+    float: right;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    padding-left: 8px;
+    padding-bottom: 10px;
+}
+
+.slide-in {
+    animation: slideIn cubic-bezier(0.075, 0.82, 0.165, 1) 0.5s;
+    top: 10px;
+}
+
+.title {
+    display: none;
+}
+
+@keyframes slideIn {
+    0% {
+        top: -200;
+    }
+    90% {}
+    100% {
+        top: 10;
+    }
+}
+
+@keyframes slideOut {
+    0% {
+        top: 10;
+    }
+    100% {
+        top: -200;
+    }
+}
