@@ -3,7 +3,7 @@ import shutil
 import click
 import PyInstaller.__main__
 
-files = ['config.example.json', 'miniweb.exe']
+files = ['config.example.json', 'miniweb.exe', 'README.md']
 directories = ['web']
 
 if __name__ == '__main__':
