@@ -8,7 +8,10 @@ directories = ['web']
 
 if __name__ == '__main__':
     click.echo(click.style('Cleaning up existing builds...'))
-    shutil.rmtree('dist')
+    try:
+        shutil.rmtree('dist')
+    except FileNotFoundError:
+        pass
     click.echo(click.style('Running pyinstaller...'))
     PyInstaller.__main__.run([
         'main.py',
