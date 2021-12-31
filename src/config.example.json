@@ -4,6 +4,7 @@
     "SPOTIFY_CODE_BG_COLOR": "000000",
     "SPOTIFY_DARK": false,
     "WEB_DEBUG": false,
+    "INTEGRATED_SERVER_DEBUG": false,
     "WEB_CONFIG": {
         "animationDuration": 6000,
         "doHide": true,

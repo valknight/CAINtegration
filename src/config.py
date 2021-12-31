@@ -44,7 +44,8 @@ except FileNotFoundError:
     print("Your config file is invalid, or cannot be found. Please make sure it's saved at 'config.json'. Thanks!")
     sys.exit(1)
 
-web_debug = j.get('WEB_DEBUG', False)
+WEB_DEBUG = j.get('WEB_DEBUG', False)
+INTEGRATED_SERVER_DEBUG = j.get('INTEGRATED_SERVER_DEBUG', False)
 
 
 def get_spotify_config():
@@ -57,3 +58,7 @@ def get_spotify_config():
     else:
         SPOTIFY_COLOR_SCHEME = 'white'
     return SPOTIFY_BG_COLOR, SPOTIFY_COLOR_SCHEME
+
+def get_web_config():
+    reload_config()
+    return j['WEB_CONFIG']

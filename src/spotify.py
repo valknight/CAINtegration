@@ -4,12 +4,12 @@ import webbrowser
 import json
 import click
 import time
-from config import web_debug
+from config import WEB_DEBUG
 
 cacheVersion = 1
 class CAIntegrationSpotifyApiWrapper():
     def __init__(self) -> None:
-        if web_debug:
+        if WEB_DEBUG:
             self.base_url = "http://localhost:5000"
         else:
             self.base_url = "https://spotifyherokutest.herokuapp.com"
