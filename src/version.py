@@ -6,7 +6,7 @@ Fork of: https://gist.github.com/mikofski/e923750b415e4e4961b65a8eb42999e8
 
 import datetime
 import re
-import sys
+import subprocess
 import time
 
 from dulwich.repo import Repo
@@ -100,8 +100,11 @@ def get_current_version(projdir=PROJDIR, pattern=PATTERN, logger=None):
         return "git-{}".format(current)
 
 
-version = get_current_version("..")
-with open('VERSION', 'w') as f:
-    f.write(version)
+if __name__ == '__main__':
+    version = get_current_version("..")
+    with open('VERSION', 'w') as f:
+        f.write(version)
 
-print("Version: {}".format(version))
+    print("Version: {}".format(version))
+    subprocess.run(['git', 'stage', 'VERSION'])
+    subprocess.run(['git', 'commit', '--amend', '--no-edit'])
