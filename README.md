@@ -73,9 +73,9 @@ In the future, if I were to move to an entirely hosted version of this applicati
 Big thanks to the libraries:
 - click
 - requests
+- flask
 
 And, on our server side:
-- flask
 - gunicorn
 
 ## Future

@@ -5,6 +5,7 @@ import sys
 import click
 import spotify
 import requests
+import multiprocessing
 
 from config import PORT
 from web import start_server
@@ -41,26 +42,9 @@ def download_album_art(playback):
         for chunk in r:
             f.write(chunk)
 
-
-def main():
-    """
-    Main function
-    """
+def main_loop(sp: spotify.CAIntegrationSpotifyApiWrapper):
     global uri
     try:
-        click.echo(
-            "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
-        click.echo("Logging into Spotify...")
-        sp = spotify.CAIntegrationSpotifyApiWrapper()
-        click.echo(click.style("Hiya {}!".format(
-            sp.user_info['display_name']), fg='green', bold=True))
-        ws = start_server()
-        if (ws):
-            print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))
-        else:
-            click.echo(click.style(
-                "Oops! Your platform isn't quite supported for web. Start a web server at the 'web' directory though, and you should be good to go!", fg='red'))
-        click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
         while True:
             try:
                 playback = sp.playback
@@ -95,6 +79,30 @@ def main():
                 print(e)
             time.sleep(1)
     except KeyboardInterrupt:
+        pass
+
+def mute():
+    sys.stdout = open(os.devnull, 'w')    
+
+def main():
+    """
+    Main function
+    """
+    try:
+        click.echo(
+            "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
+        click.echo("Logging into Spotify...")
+        sp = spotify.CAIntegrationSpotifyApiWrapper()
+        click.echo(click.style("Hiya {}!".format(
+            sp.user_info['display_name']), fg='green', bold=True))
+        p = multiprocessing.Process(target=main_loop, args=(sp,))
+        p.start()
+        q = multiprocessing.Process(target=start_server)
+        q.start()
+        print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))    
+        click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
+        p.join()    
+    except KeyboardInterrupt:
         print("Shutting down!")
         files = [
             "song.json",
@@ -118,4 +126,5 @@ def main():
 
 
 if __name__ == '__main__':
+    multiprocessing.freeze_support()
     main()
