@@ -101,9 +101,10 @@ def main():
         click.echo(click.style('Connected to server - checking versions...', dim=True))
         version_status = sp.versionStatus
         if version_status['need_to_update']:
-            click.echo(click.style('An update (version {}) is avaliable!', fg='red').format(version_status['latest']))
+            click.echo(click.style('Latest server version is {} - you are running {}', fg='red').format(version_status['latest'], version_status['current']))
+            time.sleep(5)
         else:
-            click.echo(click.style('Latest server version {} - you do not need to update.'.format(version_status['latest']), dim=True))
+            click.echo(click.style('Latest server version is {} - you do not need to update.'.format(version_status['latest']), dim=True))
         click.echo(click.style("Hiya {}!\n".format(
             sp.user_info['display_name']), fg='green', bold=True))
         p = multiprocessing.Process(target=main_loop, args=(sp,))
