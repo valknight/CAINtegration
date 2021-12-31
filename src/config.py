@@ -16,17 +16,17 @@ def reload_config():
         j = json.loads(f.read())
     lastConfigRead = datetime.now()
 
+
 reload_config()
 
 try:
-    CLIENT_ID = j['CLIENT_ID']
-    CLIENT_SECRET = j['CLIENT_SECRET']
-    REDIRECT_URI = j['REDIRECT_URI']
     PORT = j['PORT']
     PLATFORM = j['PLATFORM']
 except FileNotFoundError:
     print("Your config file is invalid, or cannot be found. Please make sure it's saved at 'config.json'. Thanks!")
     sys.exit(1)
+
+web_debug = j.get('WEB_DEBUG', False)
 
 
 def get_spotify_config() -> tuple[str, Literal["black", "white"]]:
