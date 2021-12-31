@@ -8,3 +8,9 @@ web/song.json
 venv/
 .DS_Store
 .vscode/
+song.json
+album_art.png
+spotify_code.png
+spotify_code.svg
+artist.txt
+track.txt
