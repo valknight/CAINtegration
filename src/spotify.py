@@ -4,7 +4,7 @@ import webbrowser
 import json
 import click
 import time
-from config import WEB_DEBUG
+from config import WEB_DEBUG, get_version
 
 cacheVersion = 1
 class CAIntegrationSpotifyApiWrapper():
@@ -27,7 +27,8 @@ class CAIntegrationSpotifyApiWrapper():
     @property
     def headers(self):
         return {
-            "spotify": self.spotifyHeaderb64
+            "spotify": self.spotifyHeaderb64,
+            "version": get_version()
         }
     
     @property
