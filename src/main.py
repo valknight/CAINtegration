@@ -2,6 +2,7 @@ import time
 import json
 import os
 import sys
+from typing import Tuple
 import click
 import spotify
 import requests
@@ -89,11 +90,20 @@ def main():
     Main function
     """
     try:
-        click.echo(
-            "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
-        click.echo(click.style("Version: {}\n".format(get_version()), dim=True))
-        click.echo("Logging into Spotify...")
+        click.echo(click.style("CustomAudioIntegration", fg='cyan', bold=True) +
+            " | " + 
+            click.style("github.com/valknight", fg='white', bold=True) +
+            " | " +
+            click.style("twitch.tv/VKniLive", fg='magenta', bold=True))
+        click.echo(click.style("Version: {}".format(get_version()), dim=True))
+        click.echo(click.style("Logging into Spotify...", dim=True))
         sp = spotify.CAIntegrationSpotifyApiWrapper()
+        click.echo(click.style('Connected to server - checking versions...', dim=True))
+        version_status = sp.versionStatus
+        if version_status['need_to_update']:
+            click.echo(click.style('An update (version {}) is avaliable!', fg='red').format(version_status['latest']))
+        else:
+            click.echo(click.style('Latest server version {} - you do not need to update.'.format(version_status['latest']), dim=True))
         click.echo(click.style("Hiya {}!\n".format(
             sp.user_info['display_name']), fg='green', bold=True))
         p = multiprocessing.Process(target=main_loop, args=(sp,))
