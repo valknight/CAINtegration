@@ -65,9 +65,9 @@ function setup() {
             // Config data will always be avaliable now at boot
             // Here is where we want to load in the CSS theme
             config = data;
-            document.getElementById("theme").setAttribute('href', 'themes/css/' + config.theme + '.css')
+            document.getElementById("theme").setAttribute('href', '/themes/' + config.theme + '/style.css');
             const script = document.createElement('script');
-            script.src = '/themes/js/' + config.theme + '.js'
+            script.src = '/themes/' + config.theme + '/style.js';
             document.head.append(script);
             setInterval(loop, 1000);
         }

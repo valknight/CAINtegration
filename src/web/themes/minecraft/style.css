@@ -1,13 +1,13 @@
 @font-face {
     font-family: minecraft;
-    src: url(../../fonts/Minecraftia-Regular.ttf);
+    src: url('Minecraftia-Regular.ttf');
 }
 
 .notification {
     height: 155px;
     width: 700px;
     background-color: transparent;
-    background-image: url('/images/toast/bg.png');
+    background-image: url('bg.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
