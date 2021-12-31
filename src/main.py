@@ -15,11 +15,14 @@ queued_alerts = []
 uri = None
 sp = None
 
+
 def generate_spotify_code(uri):
     spotify_code_url = "https://scannables.scdn.co/uri/plain/{file_format}/{bg_color}/{color}/1280/{uri}"
     BG_COLOR, COLOR = get_spotify_config()
-    formattedSvg = spotify_code_url.format(bg_color=BG_COLOR, color=COLOR, uri=uri, file_format="svg")
-    formattedPng = spotify_code_url.format(bg_color=BG_COLOR, color=COLOR, uri=uri, file_format="png")
+    formattedSvg = spotify_code_url.format(
+        bg_color=BG_COLOR, color=COLOR, uri=uri, file_format="svg")
+    formattedPng = spotify_code_url.format(
+        bg_color=BG_COLOR, color=COLOR, uri=uri, file_format="png")
     rSvg = requests.get(formattedSvg)
     with open('web/spotify_code.svg', 'w') as f:
         f.write(rSvg.text)
@@ -40,18 +43,23 @@ def download_album_art(playback):
             f.write(chunk)
 
 
-if __name__ == '__main__':
+def main():
+    """
+    Main function
+    """
     try:
-        # Check we're actually logged in as... me?
-        click.echo("CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
+        click.echo(
+            "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
         click.echo("Logging into Spotify...")
         sp = spotify.CAIntegrationSpotifyApiWrapper()
-        click.echo(click.style("Hiya {}!".format(sp.user_info['display_name']), fg='green', bold=True))
+        click.echo(click.style("Hiya {}!".format(
+            sp.user_info['display_name']), fg='green', bold=True))
         ws = start_server()
         if (ws):
             print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))
         else:
-            click.echo(click.style("Oops! Your platform isn't quite supported for web. Start a web server at the 'web' directory though, and you should be good to go!", fg='red'))
+            click.echo(click.style(
+                "Oops! Your platform isn't quite supported for web. Start a web server at the 'web' directory though, and you should be good to go!", fg='red'))
         click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
         while True:
             try:
@@ -72,7 +80,8 @@ if __name__ == '__main__':
                             # download album art
                             download_album_art(playback)
                             # Get Spotify code
-                            code = generate_spotify_code(playback['item']['uri'])
+                            code = generate_spotify_code(
+                                playback['item']['uri'])
                             playback['scannable_code_svg'] = code
                             with open("web/song.json", "w") as f:
                                 f.write(json.dumps(playback))
@@ -105,3 +114,7 @@ if __name__ == '__main__':
         click.echo("o7 - val")
         click.pause("Press any key to quit.")
         sys.exit(0)
+
+
+if __name__ == '__main__':
+    main()
