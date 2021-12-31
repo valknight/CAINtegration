@@ -7,6 +7,8 @@ import time
 from config import WEB_DEBUG, get_version
 
 cacheVersion = 1
+
+
 class CAIntegrationSpotifyApiWrapper():
     def __init__(self) -> None:
         if WEB_DEBUG:
@@ -17,28 +19,32 @@ class CAIntegrationSpotifyApiWrapper():
         if auth_dict is None:
             self.spotify_auth = self.pairToApi()
             self.writeCache()
-        else:    
+        else:
             self.spotify_auth = auth_dict
-    
+
     @property
     def spotifyHeaderb64(self):
         return base64.b64encode(json.dumps(self.spotify_auth).encode('utf-8')).decode("utf-8")
-    
+
     @property
     def headers(self):
         return {
             "spotify": self.spotifyHeaderb64,
             "version": get_version()
         }
-    
+
     @property
     def user_info(self):
         return self.makeRequestToApi("/user/info")
-    
+
     @property
     def playback(self):
         return self.makeRequestToApi("/user/playback")
-    
+
+    @property
+    def versionStatus(self):
+        return self.makeRequestToApi("/client/version")
+
     def makeRequestToApi(self, endpoint):
         url = self.base_url + endpoint
         r = requests.get(url, headers=self.headers)
@@ -60,7 +66,7 @@ class CAIntegrationSpotifyApiWrapper():
             del j['cacheVersion']
             return j
         return None
-    
+
     def writeCache(self):
         with open('.cache', 'w') as f:
             j = self.spotify_auth
@@ -69,10 +75,13 @@ class CAIntegrationSpotifyApiWrapper():
 
     def pairToApi(self):
         url = self.base_url + "/authenticate"
-        click.echo("Your browser should open - if it doesn't, please go to {}".format(url))
+        click.echo(
+            "Your browser should open - if it doesn't, please go to {}".format(url))
         webbrowser.open(url)
-        click.echo("Log into Spotify on this page, then enter the code displayed on the screen below")
-        click.echo("The code should be " + click.style("8 characters long", fg='green', bold=True) + " with a dash in the middle")
+        click.echo(
+            "Log into Spotify on this page, then enter the code displayed on the screen below")
+        click.echo("The code should be " + click.style("8 characters long",
+                   fg='green', bold=True) + " with a dash in the middle")
         while True:
             code = click.prompt("Code: ")
             url = self.base_url + "/validate/{}".format(code)
@@ -80,14 +89,18 @@ class CAIntegrationSpotifyApiWrapper():
             if r.json().get('auth'):
                 return r.json().get('auth')
             else:
-                click.echo(click.style(r.json().get('error'), fg='red', bold=True) + " - please try again")
+                click.echo(click.style(r.json().get('error'),
+                           fg='red', bold=True) + " - please try again")
+
 
 def main():
     s = CAIntegrationSpotifyApiWrapper()
     print("Logged in as {}".format(s.user_info['display_name']))
     while True:
-        print("Currently listening to: {}".format(s.playback.get('item', {}).get('name', 'Nothing')))
+        print("Currently listening to: {}".format(
+            s.playback.get('item', {}).get('name', 'Nothing')))
         time.sleep(5)
+
 
 if __name__ == "__main__":
     main()
