@@ -118,7 +118,7 @@ def create_version(version):
     subprocess.run(['git', 'stage', 'VERSION'])
     subprocess.run(['git', 'commit', '--amend', '--no-edit'])
     if create_tag:
-        subprocess.run(['git', 'tag', version])
+        subprocess.run(['git', 'tag', "version-{}".format(version)])
 
 if __name__ == '__main__':
     create_version(None)
