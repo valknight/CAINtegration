@@ -1,13 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
-
-
+# Begin build script
 block_cipher = None
-
-
 a = Analysis(['main.py'],
              pathex=[],
              binaries=[],
-             datas=[('web', 'web'), ('config.example.json', '.'), ('../README.md', '.')],
+             datas=[('web', 'web'), ('config.example.json', '.'), ('../README.md', '.'), ('VERSION', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -41,3 +38,5 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='CustomAudioIntegration')
+
+os.remove('VERSION')
