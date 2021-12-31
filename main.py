@@ -45,9 +45,8 @@ if __name__ == '__main__':
         # Check we're actually logged in as... me?
         click.echo("CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
         click.echo("Logging into Spotify...")
-        click.echo("Your browser window may pop up!")
         sp = spotify.CAIntegrationSpotifyApiWrapper()
-        click.echo("Hiya {}!".format(sp.user_info['display_name']))
+        click.echo(click.style("Hiya {}!".format(sp.user_info['display_name']), fg='green', bold=True))
         ws = start_server()
         if (ws):
             print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))
