@@ -1,16 +1,13 @@
-import spotipy.exceptions
 import time
 import json
 import os
 import sys
 import click
+import spotify
 import requests
-import shutil
 
 from config import PORT
 from web import start_server
-from spotify import get_sp
-from playback import play_song
 from config import get_spotify_config
 
 queued_alerts = []
@@ -49,14 +46,8 @@ if __name__ == '__main__':
         click.echo("CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
         click.echo("Logging into Spotify...")
         click.echo("Your browser window may pop up!")
-        while True:
-            try:
-                sp = get_sp()
-                click.echo(click.style("Hello {}!".format(sp.current_user()['display_name']), fg='green', bold=True))
-                break
-            except spotipy.exceptions.SpotifyException:
-                print("Oops! Looks like you might've been logged out. We'll log you back in now!")
-                os.remove(".cache")
+        sp = spotify.CAIntegrationSpotifyApiWrapper()
+        click.echo("Hiya {}!".format(sp.user_info['display_name']))
         ws = start_server()
         if (ws):
             print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))
@@ -65,7 +56,7 @@ if __name__ == '__main__':
         click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
         while True:
             try:
-                playback = sp.current_playback()
+                playback = sp.playback
                 if type(playback) == dict:
                     if playback['is_playing']:
                         if playback['item']['uri'] != uri:
