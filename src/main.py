@@ -9,7 +9,7 @@ import multiprocessing
 
 from config import PORT
 from web import start_server
-from config import get_spotify_config
+from config import get_spotify_config, get_version
 
 queued_alerts = []
 # Main code
@@ -91,15 +91,17 @@ def main():
     try:
         click.echo(
             "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
+        click.echo(click.style("Version: {}\n".format(get_version()), dim=True))
         click.echo("Logging into Spotify...")
         sp = spotify.CAIntegrationSpotifyApiWrapper()
-        click.echo(click.style("Hiya {}!".format(
+        click.echo(click.style("Hiya {}!\n".format(
             sp.user_info['display_name']), fg='green', bold=True))
         p = multiprocessing.Process(target=main_loop, args=(sp,))
         p.start()
         q = multiprocessing.Process(target=start_server)
         q.start()
-        print("Your web source in OBS is: http://127.0.0.1:{}".format(PORT))    
+        time.sleep(0.6)
+        print("\nYour web source for OBS is: " +click.style("http://127.0.0.1:{}".format(PORT), bold=True) + '\n')
         click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
         p.join()    
     except KeyboardInterrupt:
