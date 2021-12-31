@@ -8,6 +8,7 @@ import datetime
 import re
 import subprocess
 import time
+import click
 
 from dulwich.repo import Repo
 
@@ -99,12 +100,25 @@ def get_current_version(projdir=PROJDIR, pattern=PATTERN, logger=None):
     else:
         return "git-{}".format(current)
 
+@click.command()
+@click.option('--version', default=None, help='Version to write to file.')
+def create_version(version):
+    create_tag = False
+    if version is not None:
+        create_tag = True
+    else:
+        # Version is not provided, so we will use the git hash (unless already tagged lol)
+        version = get_current_version("..")
 
-if __name__ == '__main__':
-    version = get_current_version("..")
+    # Write version
     with open('VERSION', 'w') as f:
         f.write(version)
 
     print("Version: {}".format(version))
     subprocess.run(['git', 'stage', 'VERSION'])
     subprocess.run(['git', 'commit', '--amend', '--no-edit'])
+    if create_tag:
+        subprocess.run(['git', 'tag', version])
+
+if __name__ == '__main__':
+    create_version(None)
