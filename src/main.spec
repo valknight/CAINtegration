@@ -3,6 +3,7 @@
 
 block_cipher = None
 
+# TODO: Put versioning here
 
 a = Analysis(['main.py'],
              pathex=[],
