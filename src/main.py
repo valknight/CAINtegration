@@ -13,7 +13,6 @@ from config import get_spotify_config
 queued_alerts = []
 # Main code
 uri = None
-sp = None
 
 
 def generate_spotify_code(uri):
@@ -47,6 +46,7 @@ def main():
     """
     Main function
     """
+    global uri
     try:
         click.echo(
             "CustomAudioIntegration | github.com/valknight | twitch.tv/VKniLive")
