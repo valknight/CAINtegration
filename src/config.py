@@ -8,6 +8,9 @@ interval = 1
 
 j = None
 
+def write_config(j):
+    with open('config.json', 'w') as f:
+        f.write(json.dumps(j, indent=4))
 
 def reload_config():
     global j
@@ -18,9 +21,17 @@ def reload_config():
     except FileNotFoundError:
         with open('config.example.json', 'r') as f:
             j = json.loads(f.read())
-            with open('config.json', 'w') as f:
-                f.write(json.dumps(j, indent=4))
-            reload_config()
+            write_config(j)
+            return reload_config()
+    if j.get('WEB_CONFIG') is None:
+        j['WEB_CONFIG'] = {
+            "animationDuration": 6000,
+            "doHide": True,
+            "theme": "minecraft"
+        }
+        write_config(j)
+    with open('web/config.json', 'w') as f:
+        f.write(json.dumps(j['WEB_CONFIG'], indent=4))
     lastConfigRead = datetime.now()
 
 

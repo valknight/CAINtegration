@@ -102,7 +102,8 @@ def main():
             "spotify_code.png",
             "spotify_code.svg",
             "artist.txt",
-            "track.txt"
+            "track.txt",
+            "config.json"
         ]
         for f in files:
             try:
