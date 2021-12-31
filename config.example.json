@@ -1,7 +1,7 @@
 {
-    "REDIRECT_URI": "http://localhost:8080/callback",
     "PORT": 1337,
     "PLATFORM": "WINDOWS",
     "SPOTIFY_CODE_BG_COLOR": "000000",
-    "SPOTIFY_DARK": false
+    "SPOTIFY_DARK": false,
+    "WEB_DEBUG": false
 }

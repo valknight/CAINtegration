@@ -4,8 +4,8 @@ import webbrowser
 import json
 import click
 import time
+from config import debug
 
-debug = False
 cacheVersion = 1
 class CAIntegrationSpotifyApiWrapper():
     def __init__(self) -> None:
