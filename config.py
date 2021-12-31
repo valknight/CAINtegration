@@ -19,9 +19,6 @@ def reload_config():
 reload_config()
 
 try:
-    CLIENT_ID = j['CLIENT_ID']
-    CLIENT_SECRET = j['CLIENT_SECRET']
-    REDIRECT_URI = j['REDIRECT_URI']
     PORT = j['PORT']
     PLATFORM = j['PLATFORM']
 except FileNotFoundError:
