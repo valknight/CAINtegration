@@ -111,7 +111,7 @@ def main():
         q = multiprocessing.Process(target=start_server)
         q.start()
         time.sleep(0.6)
-        print("\nYour web source for OBS is: " +click.style("http://127.0.0.1:{}".format(PORT), fg='red') + '\n')
+        print("\nYour web source for OBS is: http://127.0.0.1:{}".format(PORT))
         click.echo(click.style("Press CTRL-C to quit.", fg='black', bg='white'))
         p.join()    
     except KeyboardInterrupt:
