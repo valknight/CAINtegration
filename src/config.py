@@ -16,8 +16,15 @@ j = None
 def reload_config():
     global j
     global lastConfigRead
-    with open('config.json', 'r') as f:
-        j = json.loads(f.read())
+    try:
+        with open('config.json', 'r') as f:
+            j = json.loads(f.read())
+    except FileNotFoundError:
+        with open('config.example.json', 'r') as f:
+            j = json.loads(f.read())
+            with open('config.json', 'w') as f:
+                f.write(json.dumps(j, indent=4))
+            reload_config()
     lastConfigRead = datetime.now()
 
 
