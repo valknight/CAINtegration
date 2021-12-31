@@ -1,7 +1,11 @@
 import json
 import sys
 from datetime import datetime, timedelta
-from typing import Literal
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
 
 lastConfigRead = timedelta(minutes=1)
 interval = 1
