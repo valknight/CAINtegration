@@ -26,7 +26,7 @@ except FileNotFoundError:
     print("Your config file is invalid, or cannot be found. Please make sure it's saved at 'config.json'. Thanks!")
     sys.exit(1)
 
-debug = j.get('DEBUG', False)
+web_debug = j.get('WEB_DEBUG', False)
 
 
 def get_spotify_config() -> tuple[str, Literal["black", "white"]]:
