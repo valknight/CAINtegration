@@ -1,14 +1,26 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+import subprocess
+import os
 
 block_cipher = None
 
 # TODO: Put versioning here
-
+p = subprocess.run(['git', 'describe', '--exact-match', 'HEAD'], capture_output=True)
+print("status code:", p.returncode)
+if p.returncode == 0:
+    version = p.stdout.decode('utf-8')
+else:
+    p = subprocess.run(['git', 'rev-parse', 'HEAD'], capture_output=True)
+    version = p.stdout.decode('utf-8')
+    version = "git-{}".format(version)
+version = version.replace("\n", "")
+print("Version: {}".format(version))
+with open('version', 'w') as f:
+    f.write(version)
 a = Analysis(['main.py'],
              pathex=[],
              binaries=[],
-             datas=[('web', 'web'), ('config.example.json', '.'), ('../README.md', '.')],
+             datas=[('web', 'web'), ('config.example.json', '.'), ('../README.md', '.'), ('../version', '.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -42,3 +54,5 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='CustomAudioIntegration')
+
+os.remove('version')
