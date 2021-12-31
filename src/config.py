@@ -1,10 +1,6 @@
 import json
 import sys
 from datetime import datetime, timedelta
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
 
 
 lastConfigRead = timedelta(minutes=1)
@@ -40,7 +36,7 @@ except FileNotFoundError:
 web_debug = j.get('WEB_DEBUG', False)
 
 
-def get_spotify_config() -> tuple[str, Literal["black", "white"]]:
+def get_spotify_config():
     if datetime.now() - lastConfigRead > timedelta(seconds=5):
         reload_config()
     SPOTIFY_BG_COLOR = j.get('SPOTIFY_CODE_BG_COLOR', "f0f0f0")
