@@ -8,6 +8,13 @@ interval = 1
 
 j = None
 
+def get_version():
+    try:
+        with open('version', 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        return 'develop'
+
 def write_config(j):
     with open('config.json', 'w') as f:
         f.write(json.dumps(j, indent=4))
