@@ -39,4 +39,3 @@ coll = COLLECT(exe,
                upx_exclude=[],
                name='CustomAudioIntegration')
 
-os.remove('VERSION')
