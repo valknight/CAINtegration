@@ -1,4 +1,5 @@
 import json
+from os import read
 import sys
 from datetime import datetime, timedelta
 
@@ -8,12 +9,20 @@ interval = 1
 
 j = None
 
-def get_version():
+def read_version_file(file_name):
     try:
-        with open('version', 'r') as f:
-            return f.read()
+        with open(file_name, 'r') as f:
+            return f.read().replace('\n', '')
     except FileNotFoundError:
-        return 'develop'
+        return None
+def get_version():
+    a = read_version_file('version')
+    if a is not None:
+        return a
+    a = read_version_file('VERSION')
+    if a is not None:
+        return a
+    return 'develop'
 
 def write_config(j):
     with open('config.json', 'w') as f:
