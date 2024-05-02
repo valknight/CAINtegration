@@ -14,7 +14,7 @@ class CAIntegrationSpotifyApiWrapper():
         if WEB_DEBUG:
             self.base_url = "http://localhost:5000"
         else:
-            self.base_url = "https://spotifyherokutest.herokuapp.com"
+            self.base_url = "https://cai.valknight.xyz"
         auth_dict = self.readCache()
         if auth_dict is None:
             self.spotify_auth = self.pairToApi()
