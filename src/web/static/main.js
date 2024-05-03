@@ -52,6 +52,9 @@ function showSong() {
 
     getImg().setAttribute("src", albumArt);
     getImg().onload = finish;
+    if (window.customThemeSongChange != undefined) {
+        window.customThemeSongChange();
+    }
 }
 
 function hide() {
@@ -126,5 +129,4 @@ var rightJS = {
 };
 
 window.addEventListener('load', rightJS.init);
-
-setup();
+window.addEventListener('load', setup);
